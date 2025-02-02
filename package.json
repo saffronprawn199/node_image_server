@@ -1,0 +1,42 @@
+{
+  "name": "typescript-project",
+  "version": "1.0.0",
+  "description": "A TypeScript project",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "ts-node --transpile-only node_modules/jasmine/bin/jasmine --config=jasmine.json",
+    "build": "npx tsc",
+    "start": "npm run build && nodemon src/index.ts",
+    "lint": "eslint . --ext .ts",
+    "prettier": "prettier --write 'src/**/*.ts'"
+  },
+  "devDependencies": {
+    "@types/compression": "^1.7.5",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/jasmine": "^4.3.1",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^20.11.24",
+    "@types/supertest": "^6.0.2",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^8.0.0",
+    "jasmine": "^5.1.0",
+    "jasmine-spec-reporter": "^7.0.0",
+    "nodemon": "^3.1.9",
+    "prettier": "^3.4.2",
+    "supertest": "^6.3.4",
+    "ts-node": "^10.9.2",
+    "typescript": "5.1.6"
+  },
+  "dependencies": {
+    "compression": "^1.7.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^7.2.0",
+    "morgan": "^1.10.0",
+    "sharp": "^0.33.5"
+  }
+}
