@@ -5,6 +5,8 @@ import sharp from "sharp";
 import { authMiddleware } from "../middleware/auth";
 import { validateImage } from "../middleware/imageValidation";
 import { imageLogger } from "../middleware/imageLogger";
+import { imageProcessor } from "../services/imageProcessor"; // Ensure you import the imageProcessor
+
 
 const router = express.Router();
 
@@ -17,11 +19,13 @@ router.get(
   async (req: Request, res: Response): Promise<void> => {
     try {
       const { filename, width, height } = req.query;
-
       if (!filename) {
         res.status(400).json({ error: "Filename is required" });
         return;
       }
+
+      const numWidth = parseInt(width as string);
+      const numHeight = parseInt(height as string);
 
       const imagePath = path.join(
         __dirname,
@@ -38,29 +42,13 @@ router.get(
         return;
       }
 
-      // If no size parameters, send original image
-      if (!width && !height) {
-        res.sendFile(imagePath);
-        return;
-      }
-
       // Process image with Sharp
-      let imageProcessor = sharp(imagePath);
-
-      // Resize if dimensions provided
-      if (width || height) {
-        imageProcessor = imageProcessor.resize({
-          width: width ? parseInt(width as string) : undefined,
-          height: height ? parseInt(height as string) : undefined,
-          fit: "contain",
-        });
-      }
+      const processedPath = await imageProcessor.processImage(filename as string, numWidth as number, numHeight as number);
 
       // Send processed image
       res.set("Content-Type", "image/jpeg");
-      await new Promise((resolve) => {
-        imageProcessor.pipe(res).on("finish", resolve);
-      });
+      res.sendFile(processedPath);
+      
     } catch (error) {
       console.error("Error processing image:", error);
       res.status(500).json({ error: "Error processing image" });

@@ -1,5 +1,6 @@
 import express from "express";
-import { configureMiddleware, imageResizeMiddleware } from "./config/middleware";
+import { configureMiddleware } from "./config/middleware";
+import { imageResizeMiddleware } from "./middleware/imageResizeMiddleware";
 import viewRoutes from "./routes/viewRoutes";
 import imageRoutes from "./routes/imageRoutes";
 import dotenv from 'dotenv';

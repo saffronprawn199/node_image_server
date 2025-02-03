@@ -1,9 +1,6 @@
 import express, { Request, Response } from "express";
 import fs from "fs";
 import path from "path";
-import { authMiddleware } from "../middleware/auth";
-import { imageLogger } from "../middleware/imageLogger";
-import { validateImage } from "../middleware/imageValidation";
 
 const router = express.Router();
 
