@@ -3,7 +3,7 @@ import { configureMiddleware } from "./config/middleware";
 import { imageResizeMiddleware } from "./middleware/imageResizeMiddleware";
 import viewRoutes from "./routes/viewRoutes";
 import imageRoutes from "./routes/imageRoutes";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 import path from "path";
 
 const app = express();
@@ -17,7 +17,7 @@ configureMiddleware(app);
 app.use("/static", express.static(path.join(__dirname, "../images")));
 
 // Configure middleware
-app.use("/api/image",imageResizeMiddleware ,imageRoutes);
+app.use("/api/image", imageResizeMiddleware, imageRoutes);
 
 // Add view routes
 app.use("/", viewRoutes);

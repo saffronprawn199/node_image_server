@@ -12,8 +12,8 @@ export const validateImage = (
 
   const allowedExtensions = [".jpg", ".jpeg", ".png", ".gif"];
 
-  console.log("validate width", width)
-  console.log(height)
+  console.log("validate width", width);
+  console.log(height);
 
   // Validate filename
   if (!filename) {
@@ -25,8 +25,6 @@ export const validateImage = (
     res.status(400).json({ error: "Invalid image format" });
     return;
   }
-
-
 
   // Validate dimensions if provided
   if (width && isNaN(parseInt(width))) {

@@ -1,12 +1,14 @@
 import { ImageProcessor } from "../../services/imageProcessor";
 import app from "../../index";
 import supertest from "supertest";
+import dotenv from "dotenv";
 
 const request = supertest(app);
 
+dotenv.config();
+
 describe("ImageProcessor", () => {
   const imageProcessor = new ImageProcessor();
-  
 
   it("should validate correct dimensions", () => {
     expect(imageProcessor.validateDimensions(100, 100)).toBe(true);
@@ -19,12 +21,14 @@ describe("Image Processing Endpoint", () => {
   const apiKey = process.env.API_KEY; // Replace with your actual API key
 
   it("should successfully resize an image", async () => {
-    const response = await request.get("/api/image").query({
-      filename: testImageName,
-      width: "200",
-      height: "200",
-    })
-    .set("x-api-key", apiKey as string);
+    const response = await request
+      .get("/api/image")
+      .query({
+        filename: testImageName,
+        width: "200",
+        height: "200",
+      })
+      .set("x-api-key", apiKey as string);
     expect(response.status).toBe(200);
   });
 
@@ -33,7 +37,6 @@ describe("Image Processing Endpoint", () => {
       filename: testImageName,
       // Missing width and height
     });
-
     expect(response.status).toBe(400);
   });
 

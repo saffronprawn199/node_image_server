@@ -31,8 +31,6 @@ const saveImageAccess = (imagePath: string) => {
   }
 };
 
-
-
 export const configureMiddleware = (app: express.Application) => {
   // Security middleware
   app.use(

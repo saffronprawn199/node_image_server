@@ -1,12 +1,10 @@
 import express, { Request, Response } from "express";
 import path from "path";
 import fs from "fs";
-import sharp from "sharp";
 import { authMiddleware } from "../middleware/auth";
 import { validateImage } from "../middleware/imageValidation";
 import { imageLogger } from "../middleware/imageLogger";
 import { imageProcessor } from "../services/imageProcessor"; // Ensure you import the imageProcessor
-
 
 const router = express.Router();
 
@@ -43,12 +41,15 @@ router.get(
       }
 
       // Process image with Sharp
-      const processedPath = await imageProcessor.processImage(filename as string, numWidth as number, numHeight as number);
+      const processedPath = await imageProcessor.processImage(
+        filename as string,
+        numWidth as number,
+        numHeight as number,
+      );
 
       // Send processed image
       res.set("Content-Type", "image/jpeg");
       res.sendFile(processedPath);
-      
     } catch (error) {
       console.error("Error processing image:", error);
       res.status(500).json({ error: "Error processing image" });
